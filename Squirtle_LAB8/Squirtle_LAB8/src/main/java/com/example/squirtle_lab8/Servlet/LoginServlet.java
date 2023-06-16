@@ -1,5 +1,6 @@
 package com.example.squirtle_lab8.Servlet;
 
+import com.example.squirtle_lab8.Beans.Usuarios;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,12 +25,12 @@ public class LoginServlet extends HttpServlet {
 
             if(session != null && session.getAttribute("usuarioLog") != null){
 
-                Employee employee = (Employee) session.getAttribute("usuarioLog");
+                Usuarios usuarios = (Usuarios) session.getAttribute("usuarioLog");
 
-                if(employee.getEmployeeId()>0){ //estoy loggedIn
+                if(usuarios.get()>0){ //estoy loggedIn
                     resp.sendRedirect(req.getContextPath() + "/EmployeeServlet");
                 }else{ // no estoy loggedId
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("loginPage.jsp");
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
                     dispatcher.forward(req, resp);
                 }
             }
