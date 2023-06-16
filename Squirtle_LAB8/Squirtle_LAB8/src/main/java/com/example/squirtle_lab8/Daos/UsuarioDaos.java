@@ -13,9 +13,9 @@ public class UsuarioDaos extends DaoBase{
 
         Usuarios usuarios = null;
 
-        String sql = "SELECT * FROM cuenta c \n" +
-                "inner join credencial cr  on  cr.idCuenta = c.idCuenta  \n" +
-                "where cr.correo = ? and cr.contraseniaHashed = sha2(?,256)";
+        String sql = "SELECT * FROM usuarios u \n" +
+                "inner join credenciales cr  on  cr.idUsuarios = u.idUsuarios  \n" +
+                "where cr.nombre = ? and cr.passwordHashed = sha2(?,256)";
 
         try (Connection connection = getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
