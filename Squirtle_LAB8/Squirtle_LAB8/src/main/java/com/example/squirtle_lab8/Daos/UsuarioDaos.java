@@ -40,9 +40,9 @@ public class UsuarioDaos extends DaoBase{
 
         Usuarios usuarios = null;
 
-        String sql = "select * from cuenta c\n" +
-                "inner join rol r on c.idRol = r.idRol\n" +
-                "where c.idCuenta = ?;";
+        String sql = "select * from usuarios u\n" +
+                "inner join estatus e on u.idEstatus = e.idEstatus\n" +
+                "where u.idCuenta = ?";
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
