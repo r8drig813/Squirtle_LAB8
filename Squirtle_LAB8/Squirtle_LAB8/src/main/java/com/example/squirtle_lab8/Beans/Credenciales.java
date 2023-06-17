@@ -3,6 +3,7 @@ package com.example.squirtle_lab8.Beans;
 public class Credenciales {
 
     private String nombre;
+    private String password;
     private String passwordHashed;
     private int idUsuarios;
 
@@ -23,11 +24,19 @@ public class Credenciales {
         this.passwordHashed = passwordHashed;
     }
 
-    public int getIdUsuario() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getIdUsuarios() {
         return idUsuarios;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuarios = idUsuario;
+    public void setIdUsuarios(int idUsuarios) {
+        this.idUsuarios = idUsuarios;
     }
 }

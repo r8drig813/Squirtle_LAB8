@@ -1,5 +1,6 @@
 package com.example.squirtle_lab8.Daos;
 
+import com.example.squirtle_lab8.Beans.Credenciales;
 import com.example.squirtle_lab8.Beans.Estatus;
 import com.example.squirtle_lab8.Beans.Usuarios;
 
@@ -78,6 +79,50 @@ public class UsuarioDaos extends DaoBase{
         estatus.setNombre(rs.getString(10));
         usuarios.setEstatus(estatus);
 
+    }
+
+    public void guardarUsuario (Usuarios usuarios) throws SQLException{
+        String sql = "insert INTO usuarios (nombre,apellido,edad,codigoPucp,correoPucp,especialidad,idEstatus)\n" +
+                "values (?,?,?,?,?,?,?);";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            setUsuarioParams(pstmt, usuarios);
+            pstmt.executeUpdate();
+        }
+
+    }
+
+    public void guardarUsuarioCredenciales (Credenciales credenciales) throws SQLException{
+        String sql = "insert into credenciales (idUsuarios,nombre,passwordHashed)\n" +
+                "values (?,?,SHA2(?, 256));";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            setCredencialesParams(pstmt, credenciales);
+            pstmt.executeUpdate();
+        }
+
+    }
+
+    private void setUsuarioParams (PreparedStatement pstmt, Usuarios usuarios) throws SQLException{
+
+        pstmt.setString(1,usuarios.getNombre());
+        pstmt.setString(2,usuarios.getApellido());
+        pstmt.setInt(3,usuarios.getEdad());
+        pstmt.setString(4,usuarios.getCodigoPucp());
+        pstmt.setString(5,usuarios.getCorreoPucp());
+        pstmt.setString(6,usuarios.getEspecialidad());
+        pstmt.setInt(7,usuarios.getIdEstatus());
+
+
+    }
+
+    private void setCredencialesParams (PreparedStatement pstmt, Credenciales credenciales) throws SQLException{
+
+        pstmt.setInt(1,credenciales.getIdUsuarios());
+        pstmt.setString(2,credenciales.getNombre());
+        pstmt.setString(3,credenciales.getPasswordHashed());
     }
 
 }

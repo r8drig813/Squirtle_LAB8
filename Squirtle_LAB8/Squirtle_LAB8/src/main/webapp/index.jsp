@@ -89,7 +89,7 @@
         <div  class="text-primary" style="color: blue;" >Error en nombre o contraseña</div>
         <% } %>
         <button type="submit">Ingresar</button>
-        <a href="#">Soy nuevo y quiero registrarme</a>
+        <a class="btn btn-success" href="<%=request.getContextPath()%>/UsuariosServlet?action=agregar"><i class="bi bi-plus-circle"></i>Soy nuevo y quiero registrarme</a>
     </form>
 </div>
 </body>
