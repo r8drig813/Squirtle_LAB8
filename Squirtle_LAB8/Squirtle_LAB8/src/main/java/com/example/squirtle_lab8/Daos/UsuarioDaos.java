@@ -1,5 +1,6 @@
 package com.example.squirtle_lab8.Daos;
 
+import com.example.squirtle_lab8.Beans.Estatus;
 import com.example.squirtle_lab8.Beans.Usuarios;
 
 import java.sql.Connection;
@@ -36,24 +37,24 @@ public class UsuarioDaos extends DaoBase{
         return usuarios;
     }
 
-    public Usuarios obtenerCuentas(int idUsuario) {
+    public Usuarios obtenerCuentas(int idUsuarios) {
 
         Usuarios usuarios = null;
 
         String sql = "select * from usuarios u\n" +
                 "inner join estatus e on u.idEstatus = e.idEstatus\n" +
-                "where u.idCuenta = ?";
+                "where u.idUsuarios = ?";
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, idUsuario);
+            pstmt.setInt(1, idUsuarios);
 
             try (ResultSet rs = pstmt.executeQuery()) {
 
                 if (rs.next()) {
                     usuarios = new Usuarios();
-                    fetchEmployeeData(usuarios, rs);
+                    fetchCuentasData(usuarios, rs);
                 }
             }
         } catch (SQLException ex) {
@@ -63,9 +64,19 @@ public class UsuarioDaos extends DaoBase{
         return usuarios;
     }
 
-    private void fetchEmployeeData(Usuarios usuarios, ResultSet rs) throws SQLException {
+    private void fetchCuentasData(Usuarios usuarios, ResultSet rs) throws SQLException {
+        usuarios.setIdUsuarios(rs.getInt(1));
+        usuarios.setNombre(rs.getString(2));
+        usuarios.setApellido(rs.getString(3));
+        usuarios.setEdad(rs.getInt(4));
+        usuarios.setCodigoPucp(rs.getString(5));
+        usuarios.setCorreoPucp(rs.getString(6));
+        usuarios.setEspecialidad( rs.getString(7));
 
-
+        Estatus estatus = new Estatus();
+        estatus.setIdEstatus(rs.getInt(9));
+        estatus.setNombre(rs.getString(10));
+        usuarios.setEstatus(estatus);
 
     }
 

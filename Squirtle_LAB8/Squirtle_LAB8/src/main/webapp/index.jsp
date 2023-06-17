@@ -82,9 +82,12 @@
         <img id="overlay-image" src="logo.png" alt="Imagen en el cuadrado negro">
     </div>
     <h2>Bienvenido Televiajero</h2>
-    <form>
-        <input type="text" placeholder="Usuario" required>
-        <input type="password" placeholder="Contraseña" required>
+    <form class="form-signin" method="POST" action="<%=request.getContextPath()%>/login">
+        <input type="text" name="inputNombre" class="form-control" placeholder="Nombre" autofocus="">
+        <input type="password" name="inputPassword" class="form-control" placeholder="Password">
+        <% if (request.getAttribute("error") != null) { %>
+        <div  class="text-primary" style="color: blue;" >Error en nombre o contraseña</div>
+        <% } %>
         <button type="submit">Ingresar</button>
         <a href="#">Soy nuevo y quiero registrarme</a>
     </form>

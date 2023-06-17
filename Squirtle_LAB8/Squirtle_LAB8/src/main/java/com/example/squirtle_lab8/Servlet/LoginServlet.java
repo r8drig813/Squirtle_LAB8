@@ -1,6 +1,7 @@
 package com.example.squirtle_lab8.Servlet;
 
 import com.example.squirtle_lab8.Beans.Usuarios;
+import com.example.squirtle_lab8.Daos.UsuarioDaos;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,7 +20,7 @@ public class LoginServlet extends HttpServlet {
 
         String action = req.getParameter("action") != null ? req.getParameter("action") : "login";
 
-        /*if (action.equals("login")) {
+        if (action.equals("login")) {
 
             HttpSession session = req.getSession();
 
@@ -27,8 +28,8 @@ public class LoginServlet extends HttpServlet {
 
                 Usuarios usuarios = (Usuarios) session.getAttribute("usuarioLog");
 
-                if(usuarios.get()>0){ //estoy loggedIn
-                    resp.sendRedirect(req.getContextPath() + "/EmployeeServlet");
+                if(usuarios.getIdUsuarios()>0){ //estoy loggedIn
+                    resp.sendRedirect(req.getContextPath() + "/lista");
                 }else{ // no estoy loggedId
                     RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
                     dispatcher.forward(req, resp);
@@ -37,29 +38,30 @@ public class LoginServlet extends HttpServlet {
         }else{ //logout
             req.getSession().invalidate();
             resp.sendRedirect(req.getContextPath());
-        }*/
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("inputEmail");
+
+        String nombre = req.getParameter("inputNombre");
         String pass = req.getParameter("inputPassword");
 
-        /*EmployeeDao employeeDao = new EmployeeDao();
+        UsuarioDaos usuarioDaos = new UsuarioDaos();
 
-        Employee employee = employeeDao.validateUsernameAndPassword(email, pass);
+        Usuarios usuarios = usuarioDaos.validateUsernameAndPassword(nombre, pass);
 
 
-        if (employee != null) { //usuario y password correctos
+        if (usuarios != null) { //usuario y password correctos
             HttpSession session = req.getSession();
-            session.setAttribute("usuarioLog", employee);
+            session.setAttribute("usuarioLog", usuarios);
 
             session.setMaxInactiveInterval(300);//en segundos
 
             resp.sendRedirect(req.getContextPath());
         } else { //usuario o password incorrectos
             req.setAttribute("error", "Usuario o password incorrectos");
-            req.getRequestDispatcher("loginPage.jsp").forward(req, resp);
-        }*/
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
+        }
     }
 }
