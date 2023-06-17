@@ -48,7 +48,6 @@ public class LoginServlet extends HttpServlet {
         String pass = req.getParameter("inputPassword");
 
         UsuarioDaos usuarioDaos = new UsuarioDaos();
-
         Usuarios usuarios = usuarioDaos.validateUsernameAndPassword(nombre, pass);
 
 

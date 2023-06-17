@@ -61,7 +61,10 @@
     <img id="fullscreen-image" src="fondo.jpg" alt="Imagen de pantalla completa">
     <div class="container-fluid">
         <div id="top-bar" class="gold"> <!-- Aplicar la clase "gold" aquí -->
-        <a class="navbar-brand" href="<%=request.getContextPath()%>/Viajes">Viajes del Estudiante</a>
+            <a class="navbar-brand" href="<%=request.getContextPath()%>/Viajes?action=listaTodo&nombre=<%=usuarioLog.getNombre()%>"
+               style="background-color: #ff0000; color: #ffffff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+                Mostrar tus viajes
+            </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -75,11 +78,17 @@
                     </a>
                 </li>--->
                 <div class="form-inline font-italic my-2 my-lg-0">
-                    <% if (usuarioLog.getIdUsuarios() > 0) { //esto logueado %>
-                    <span><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%></span><a
-                        href="<%=request.getContextPath()%>/login?action=logout">(Cerrar Sesion)</a>
-                    <% } else { //no estoy loggedIn %>
-                    <a class="nav-link" style="color: #007bff;" href="<%=request.getContextPath()%>/login">
+                    <% if (usuarioLog.getIdUsuarios() > 0) { // Esto logueado %>
+                    <span style="background-color: #ff0000; color: #ffffff; padding: 5px 10px; border-radius: 5px;">
+                    <%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%>
+                </span>
+                    <a href="<%=request.getContextPath()%>/login?action=logout"
+                       style="background-color: #ff0000; color: #ffffff; padding: 5px 10px; border-radius: 5px; text-decoration: none;">
+                        Cerrar Sesion
+                    </a>
+                    <% } else { // No estoy loggedIn %>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/login"
+                       style="background-color: #007bff; color: #ffffff; padding: 5px 10px; border-radius: 5px; text-decoration: none;">
                         (Iniciar Sesión)
                     </a>
                     <% } %>
