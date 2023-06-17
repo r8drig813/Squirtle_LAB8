@@ -65,20 +65,7 @@ public class UsuarioDaos extends DaoBase{
 
     private void fetchEmployeeData(Usuarios usuarios, ResultSet rs) throws SQLException {
 
-        usuarios.setIdCuentas(rs.getInt(1));
-        usuarios.setNombre(rs.getString(2));
-        usuarios.setApellido(rs.getString(3));
-        usuarios.setNickname(rs.getString(4));
-        usuarios.setDireccion(rs.getString(5));
-        usuarios.setCorreo(rs.getString(6));
-        usuarios.setFoto(rs.getString(7));
-        usuarios.setDescripcion(rs.getString(8));
-        usuarios.setDesabilitado(rs.getBoolean(9));
 
-        Roles roles = new Roles();
-        roles.setIdRol(rs.getInt(11));
-        roles.setRol(rs.getString(12));
-        cuentas.setRoles(roles);
 
     }
 
