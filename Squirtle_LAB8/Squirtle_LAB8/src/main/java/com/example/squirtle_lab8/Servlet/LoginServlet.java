@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 
             session.setMaxInactiveInterval(300);//en segundos
 
-            resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(req.getContextPath()+"/Viajes");
         } else { //usuario o password incorrectos
             req.setAttribute("error", "Usuario o password incorrectos");
             req.getRequestDispatcher("index.jsp").forward(req, resp);

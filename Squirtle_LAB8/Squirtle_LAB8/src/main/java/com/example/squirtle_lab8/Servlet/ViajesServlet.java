@@ -8,7 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "ViajesServlet",urlPatterns = {"/",""})
+@WebServlet(name = "ViajesServlet",value = {"/Viajes"})
 public class ViajesServlet extends HttpServlet {
 
     @Override
