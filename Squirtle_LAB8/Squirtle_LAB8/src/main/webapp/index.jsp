@@ -85,7 +85,7 @@
     <form>
         <input type="text" placeholder="Usuario" required>
         <input type="password" placeholder="Contraseña" required>
-        <button type="submit">Ingresar</button>
+        <a class="btn btn-primary" href="<%=request.getContextPath()%>/login?action=verUsuario">Ingresar</a>
         <a href="#">Soy nuevo y quiero registrarme</a>
     </form>
 </div>
