@@ -3,11 +3,10 @@ package com.example.squirtle_lab8.Daos;
 import com.example.squirtle_lab8.Beans.Credenciales;
 import com.example.squirtle_lab8.Beans.Estatus;
 import com.example.squirtle_lab8.Beans.Usuarios;
+import com.example.squirtle_lab8.Beans.Viajes;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class UsuarioDaos extends DaoBase{
 
@@ -81,6 +80,7 @@ public class UsuarioDaos extends DaoBase{
 
     }
 
+
     public void guardarUsuario (Usuarios usuarios) throws SQLException{
         String sql = "insert INTO usuarios (nombre,apellido,edad,codigoPucp,correoPucp,especialidad,idEstatus)\n" +
                 "values (?,?,?,?,?,?,?);";
@@ -124,5 +124,53 @@ public class UsuarioDaos extends DaoBase{
         pstmt.setString(2,credenciales.getNombre());
         pstmt.setString(3,credenciales.getPasswordHashed());
     }
+
+
+    public ArrayList<Viajes> mostrarViajesUsuario(String nombre){
+
+        ArrayList<Viajes> listaViajesUsuario = new ArrayList<>();
+
+        String sql = "SELECT concat(u.nombre,' ',u.apellido),\n" +
+                "       v.idViajes,\n" +
+                "       v.fechaReserva,\n" +
+                "       v.fechaViaje,\n" +
+                "       v.ciudadOrigen,\n" +
+                "       v.ciudadaDestino,\n" +
+                "       s.nombre,\n" +
+                "       v.numeroBoletos,\n" +
+                "       v.costoTotal\n" +
+                "FROM estatus e, usuarios u, viajes v, seguros s\n" +
+                "where e.idEstatus = u.idEstatus \n" +
+                "\t  and u.idUsuarios = v.idUsuarios\n" +
+                "      and v.idSeguros = s.idSeguros\n" +
+                "      and u.nombre=?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, nombre);
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Viajes viaje = new Viajes();
+                viaje.setNombreUsuario(rs.getString(1));
+                viaje.setIdViaje(rs.getInt(2));
+                viaje.setFechaReserva(rs.getDate(3));
+                viaje.setFechaViaje(rs.getDate(4));
+                viaje.setCiudadOrigen(rs.getString(5));
+                viaje.setCiudadDestino(rs.getString(6));
+                viaje.setNombreSeguro(rs.getString(7));
+                viaje.setNumeroBoletos(rs.getInt(8));
+                viaje.setCostoTotal(rs.getBigDecimal(9));
+                listaViajesUsuario.add(viaje);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return listaViajesUsuario;
+
+    }
+
 
 }

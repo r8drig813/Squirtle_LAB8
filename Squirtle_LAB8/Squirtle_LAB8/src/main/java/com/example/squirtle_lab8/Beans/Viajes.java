@@ -1,19 +1,38 @@
 package com.example.squirtle_lab8.Beans;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class Viajes {
-
+    private int idViaje;
     private Date fechaReserva;
     private Date fechaViaje;
     private String ciudadOrigen;
     private String ciudadDestino;
     private int numeroBoletos;
-    private double costoTotal;
+    private BigDecimal costoTotal;
     private int idUsuarios;
     private Usuarios usuarios;
     private int idSeguros;
     private Seguros seguros;
+    private String nombreSeguro;
+    private String nombreUsuario;
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getNombreSeguro() {
+        return nombreSeguro;
+    }
+
+    public void setNombreSeguro(String nombreSeguro) {
+        this.nombreSeguro = nombreSeguro;
+    }
 
     public Date getFechaReserva() {
         return fechaReserva;
@@ -55,11 +74,11 @@ public class Viajes {
         this.numeroBoletos = numeroBoletos;
     }
 
-    public double getCostoTotal() {
+    public BigDecimal getCostoTotal() {
         return costoTotal;
     }
 
-    public void setCostoTotal(double costoTotal) {
+    public void setCostoTotal(BigDecimal costoTotal) {
         this.costoTotal = costoTotal;
     }
 
@@ -93,5 +112,13 @@ public class Viajes {
 
     public void setSeguros(Seguros seguros) {
         this.seguros = seguros;
+    }
+
+    public int getIdViaje() {
+        return idViaje;
+    }
+
+    public void setIdViaje(int idViaje) {
+        this.idViaje = idViaje;
     }
 }
