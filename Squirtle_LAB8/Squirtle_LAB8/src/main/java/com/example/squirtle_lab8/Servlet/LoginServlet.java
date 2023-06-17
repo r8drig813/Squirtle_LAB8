@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 
         String action = req.getParameter("action") != null ? req.getParameter("action") : "login";
 
-        if (action.equals("login")) {
+        /*if (action.equals("login")) {
 
             HttpSession session = req.getSession();
 
@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         }else{ //logout
             req.getSession().invalidate();
             resp.sendRedirect(req.getContextPath());
-        }
+        }*/
     }
 
     @Override
@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("inputEmail");
         String pass = req.getParameter("inputPassword");
 
-        EmployeeDao employeeDao = new EmployeeDao();
+        /*EmployeeDao employeeDao = new EmployeeDao();
 
         Employee employee = employeeDao.validateUsernameAndPassword(email, pass);
 
@@ -60,6 +60,6 @@ public class LoginServlet extends HttpServlet {
         } else { //usuario o password incorrectos
             req.setAttribute("error", "Usuario o password incorrectos");
             req.getRequestDispatcher("loginPage.jsp").forward(req, resp);
-        }
+        }*/
     }
 }
