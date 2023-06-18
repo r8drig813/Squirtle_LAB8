@@ -37,12 +37,14 @@
 
     #top-bar {
       <%int gastos=0;
+        String tipoSocio="blue";
       for (Viajes viajeGastos : listaViajes) {
         int value= viajeGastos.getCostoTotal().intValue();
       gastos=gastos+value;
       }%>
 
-      <%if (gastos <= 100){%>
+      <%if (gastos <= 100){
+        tipoSocio="Cliente Blue: Nos alegra que estes con nosotros";%>
       background-color: blue;
       color: white;
       padding: 10px;
@@ -50,7 +52,8 @@
       justify-content: space-between;
       align-items: center;
       <%}%>
-    <%if (gastos>100 && gastos<=1000 ){%>
+    <%if (gastos>100 && gastos<=1000 ){
+      tipoSocio="SILVER: Eres un cliente excepcional";%>
       background-color: silver;
       color: white;
       padding: 10px;
@@ -58,7 +61,8 @@
       justify-content: space-between;
       align-items: center;
     <%}%>
-    <%if (gastos>1000 && gastos<=10000 ){%>
+    <%if (gastos>1000 && gastos<=10000 ){
+      tipoSocio="GOLD: Brillas como ningun otro";%>
       background-color: gold;
       color: white;
       padding: 10px;
@@ -66,7 +70,8 @@
       justify-content: space-between;
       align-items: center;
     <%}%>
-    <%if (gastos>10000 ){%>
+    <%if (gastos>10000 ){
+      tipoSocio="BLACK: Eres la cara de la empresa";%>
       background-color: black;
       color: white;
       padding: 10px;
@@ -112,6 +117,9 @@
        style="background-color: #ff0000; color: #ffffff; padding: 5px 10px; border-radius: 5px; text-decoration: none;">
       Cerrar Sesión
     </a>
+    <span color: #ffffff; padding: 5px 10px; border-radius: 5px;">
+    <%=tipoSocio%>
+    </span>
   </div>
 </div>
 <div class="card-body" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
