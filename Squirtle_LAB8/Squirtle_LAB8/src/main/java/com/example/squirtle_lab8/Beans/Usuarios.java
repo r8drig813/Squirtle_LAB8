@@ -11,6 +11,15 @@ public class Usuarios {
     private String especialidad;
     private int idEstatus;
     private Estatus estatus;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public int getIdUsuarios() {
         return idUsuarios;

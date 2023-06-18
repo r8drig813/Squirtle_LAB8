@@ -44,11 +44,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String nombre = req.getParameter("inputNombre");
+        String correo = req.getParameter("inputCorreo");
         String pass = req.getParameter("inputPassword");
 
         UsuarioDaos usuarioDaos = new UsuarioDaos();
-        Usuarios usuarios = usuarioDaos.validateUsernameAndPassword(nombre, pass);
+        Usuarios usuarios = usuarioDaos.validateUsernameAndPassword(correo, pass);
 
 
         if (usuarios != null) { //usuario y password correctos

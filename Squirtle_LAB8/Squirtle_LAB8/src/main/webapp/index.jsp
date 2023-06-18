@@ -83,7 +83,7 @@
     </div>
     <h2>Bienvenido Televiajero</h2>
     <form class="form-signin" method="POST" action="<%=request.getContextPath()%>/login">
-        <input type="text" name="inputNombre" class="form-control" placeholder="Nombre" autofocus="">
+        <input type="text" name="inputCorreo" class="form-control" placeholder="Nombre" autofocus="">
         <input type="password" name="inputPassword" class="form-control" placeholder="Password">
         <% if (request.getAttribute("error") != null) { %>
         <div  class="text-primary" style="color: blue;" >Error en nombre o contraseña</div>

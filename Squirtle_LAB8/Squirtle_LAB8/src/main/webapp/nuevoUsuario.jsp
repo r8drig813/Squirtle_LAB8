@@ -20,8 +20,8 @@
             <input type="text" class="form-control" name="apellido" id="apellido">
         </div>
         <div class="mb-3">
-            <label for="edad">Edad</label>
-            <input type="text" class="form-control" name="edad" id="edad">
+            <label for="numero">Edad</label>
+            <input type="number" class="form-control" name="edad" id="numero" min="18" max="30" oninput="validarNumero(this);" >
         </div>
         <div class="mb-3">
             <label for="codigoPucp">Codigo Pucp</label>
@@ -36,18 +36,6 @@
             <input type="text" class="form-control" name="especialidad" id="especialidad">
         </div>
         <div class="mb-3">
-            <label for="estatus">Status</label>
-            <input type="text" class="form-control" name="estatus" id="estatus">
-        </div>
-        <div class="mb-3">
-            <label for="idUsuarios">idUsuario</label>
-            <input type="text" class="form-control" name="idUsuarios" id="idUsuarios">
-        </div>
-        <div class="mb-3">
-            <label for="nombreUsuario">Nombre Usuario registrar </label>
-            <input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario">
-        </div>
-        <div class="mb-3">
             <label for="passwordHashed">Contraseña</label>
             <input type="text" class="form-control" name="passwordHashed" id="passwordHashed">
         </div>
@@ -59,7 +47,15 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    function validarNumero(input) {
+        if (input.value < 18)
+            input.value = 18;
+        else if (input.value > 30)
+            input.value = 30;
+    }
+</script>
+
 </body>
 </html>
 

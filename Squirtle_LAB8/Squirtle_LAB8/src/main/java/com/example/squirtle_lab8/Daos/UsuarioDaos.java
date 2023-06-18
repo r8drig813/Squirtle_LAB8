@@ -10,18 +10,17 @@ import java.util.ArrayList;
 
 public class UsuarioDaos extends DaoBase{
 
-    public Usuarios validateUsernameAndPassword(String nombre, String password) {
+    public Usuarios validateUsernameAndPassword(String correo, String password) {
 
         Usuarios usuarios = null;
 
-        String sql = "SELECT * FROM usuarios u \n" +
-                "inner join credenciales cr  on  cr.idUsuarios = u.idUsuarios  \n" +
-                "where cr.nombre = ? and cr.passwordHashed = sha2(?,256)";
+        String sql = "SELECT * FROM usuarios \n" +
+                "where correoPucp = ? and passwordHashed = sha2(?,256);";
 
         try (Connection connection = getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-            pstmt.setString(1, nombre);
+            pstmt.setString(1, correo);
             pstmt.setString(2, password);
 
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -72,18 +71,19 @@ public class UsuarioDaos extends DaoBase{
         usuarios.setCodigoPucp(rs.getString(5));
         usuarios.setCorreoPucp(rs.getString(6));
         usuarios.setEspecialidad( rs.getString(7));
+        usuarios.setPassword(rs.getString(9));
 
         Estatus estatus = new Estatus();
-        estatus.setIdEstatus(rs.getInt(9));
-        estatus.setNombre(rs.getString(10));
+        estatus.setIdEstatus(rs.getInt(10));
+        estatus.setNombre(rs.getString(11));
         usuarios.setEstatus(estatus);
 
     }
 
 
     public void guardarUsuario (Usuarios usuarios) throws SQLException{
-        String sql = "insert INTO usuarios (nombre,apellido,edad,codigoPucp,correoPucp,especialidad,idEstatus)\n" +
-                "values (?,?,?,?,?,?,?);";
+        String sql = "insert INTO usuarios (nombre,apellido,edad,codigoPucp,correoPucp,especialidad,idEstatus,passwordHashed)\n" +
+                "values (?,?,?,?,?,?,1,SHA2(?, 256));";
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -93,7 +93,7 @@ public class UsuarioDaos extends DaoBase{
 
     }
 
-    public void guardarUsuarioCredenciales (Credenciales credenciales) throws SQLException{
+    /*public void guardarUsuarioCredenciales (Credenciales credenciales) throws SQLException{
         String sql = "insert into credenciales (idUsuarios,nombre,passwordHashed)\n" +
                 "values (?,?,SHA2(?, 256));";
 
@@ -103,7 +103,7 @@ public class UsuarioDaos extends DaoBase{
             pstmt.executeUpdate();
         }
 
-    }
+    }*/
 
     private void setUsuarioParams (PreparedStatement pstmt, Usuarios usuarios) throws SQLException{
 
@@ -113,17 +113,18 @@ public class UsuarioDaos extends DaoBase{
         pstmt.setString(4,usuarios.getCodigoPucp());
         pstmt.setString(5,usuarios.getCorreoPucp());
         pstmt.setString(6,usuarios.getEspecialidad());
-        pstmt.setInt(7,usuarios.getIdEstatus());
+        pstmt.setString(7,usuarios.getPassword());
+        //pstmt.setInt(7,usuarios.getIdEstatus());
 
 
     }
 
-    private void setCredencialesParams (PreparedStatement pstmt, Credenciales credenciales) throws SQLException{
+    /*private void setCredencialesParams (PreparedStatement pstmt, Credenciales credenciales) throws SQLException{
 
         pstmt.setInt(1,credenciales.getIdUsuarios());
-        pstmt.setString(2,credenciales.getNombre());
-        pstmt.setString(3,credenciales.getPasswordHashed());
-    }
+        pstmt.setString(1,credenciales.getNombre());
+        pstmt.setString(2,credenciales.getPasswordHashed());
+    }*/
 
 
     public ArrayList<Viajes> mostrarViajesUsuario(String nombre){

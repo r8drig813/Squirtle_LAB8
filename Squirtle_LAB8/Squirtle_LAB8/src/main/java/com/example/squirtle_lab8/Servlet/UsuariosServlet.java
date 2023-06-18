@@ -46,19 +46,11 @@
                     usuarios.setCodigoPucp(request.getParameter("codigoPucp"));
                     usuarios.setCorreoPucp(request.getParameter("correoPucp"));
                     usuarios.setEspecialidad(request.getParameter("especialidad"));
-                    usuarios.setIdEstatus(Integer.parseInt(request.getParameter("estatus")));
-
-
-
-                    Credenciales credenciales = new Credenciales();
-                    credenciales.setIdUsuarios(Integer.parseInt(request.getParameter("idUsuarios")));
-                    credenciales.setNombre(request.getParameter("nombreUsuario"));
-                    credenciales.setPasswordHashed(request.getParameter("passwordHashed"));
+                    usuarios.setPassword(request.getParameter("passwordHashed"));
 
                     try {
                         usuarioDaos.guardarUsuario(usuarios);
-                        usuarioDaos.guardarUsuarioCredenciales(credenciales);
-                        response.sendRedirect("/Viajes");
+                        response.sendRedirect("/login");
 
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
