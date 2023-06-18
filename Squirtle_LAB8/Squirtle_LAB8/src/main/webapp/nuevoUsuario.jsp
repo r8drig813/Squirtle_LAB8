@@ -52,6 +52,12 @@
             <input type="text" class="form-control" name="passwordHashed" id="passwordHashed">
         </div>
 
+        <div class="mb-3">
+            <label for="confirm-password">Confirmar Contraseña:</label>
+            <input type="password" id="confirm-password" required>
+        </div>
+
+
         <a class="btn btn-danger" href="<%=request.getContextPath()%>/login">Cancelar</a>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
@@ -91,6 +97,20 @@
         // Devuelve verdadero solo si la contraseña cumple todas las condiciones
         return containsNumber && containsUppercase && containsSpecialChar;
     }
+
+</script>
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        var passwordInput = document.getElementById('passwordHashed');
+        var confirmPasswordInput = document.getElementById('confirm-password');
+        var password = passwordInput.value;
+        var confirmPassword = confirmPasswordInput.value;
+
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
+        }
+    });
 
 </script>
 

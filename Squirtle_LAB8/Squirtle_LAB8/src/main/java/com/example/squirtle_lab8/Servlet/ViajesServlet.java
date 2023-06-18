@@ -1,11 +1,16 @@
 package com.example.squirtle_lab8.Servlet;
 
 import java.io.*;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.example.squirtle_lab8.Beans.Seguros;
 import com.example.squirtle_lab8.Beans.Usuarios;
 import com.example.squirtle_lab8.Beans.Viajes;
+import com.example.squirtle_lab8.Daos.SeguroDaos;
 import com.example.squirtle_lab8.Daos.UsuarioDaos;
+import com.example.squirtle_lab8.Daos.ViajeDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -19,6 +24,7 @@ public class ViajesServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         RequestDispatcher view;
         UsuarioDaos usuarioDaos = new UsuarioDaos();
+        SeguroDaos seguroDaos = new SeguroDaos();
         //JobDao jobDao = new JobDao();
         //DepartmentDao departmentDao = new DepartmentDao();
 
@@ -35,11 +41,43 @@ public class ViajesServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/ViajesUsuario.jsp");
                 view.forward(request, response);
                 break;
+            case "agregar":
+                request.setAttribute("listaSeguros", seguroDaos.lista());
+                view = request.getRequestDispatcher("/nuevoViaje.jsp");
+                view.forward(request, response);
+                break;
         }
 
     }
     @Override
     protected  void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+        String action = request.getParameter("action") == null ? "guardar" : request.getParameter("action");
+        ViajeDao viajeDao = new ViajeDao();
+
+        switch (action) {
+            case"guardar":
+
+                Viajes viajes= new Viajes();
+                viajes.setFechaViaje(Date.valueOf(request.getParameter("fechaViaje")));
+                viajes.setFechaReserva(Date.valueOf(request.getParameter("fechaReserva")));
+                viajes.setNumeroBoletos(Integer.parseInt(request.getParameter("numeroBoletos")));
+                //viajes.setCostoTotal(request.getParameter("costoTotal"));
+
+                Seguros seguros = new Seguros();
+                seguros.setIdSeguros(Integer.parseInt(request.getParameter("idSeguros")));
+                viajes.setSeguros(seguros);
+
+                try {
+                    viajeDao.añadirViaje(viajes);
+                    response.sendRedirect("/Viajes");
+
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                break;
+        }
 
     }
 }

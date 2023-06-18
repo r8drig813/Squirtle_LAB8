@@ -80,7 +80,6 @@ public class UsuarioDaos extends DaoBase{
 
     }
 
-
     public void guardarUsuario (Usuarios usuarios) throws SQLException{
         String sql = "insert INTO usuarios (nombre,apellido,edad,codigoPucp,correoPucp,especialidad,idEstatus,passwordHashed)\n" +
                 "values (?,?,?,?,?,?,1,SHA2(?, 256));";

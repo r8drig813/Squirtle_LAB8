@@ -25,6 +25,7 @@
                 case "agregar":
                     view = request.getRequestDispatcher("/nuevoUsuario.jsp");
                     view.forward(request, response);
+                    break;
 
             }
 

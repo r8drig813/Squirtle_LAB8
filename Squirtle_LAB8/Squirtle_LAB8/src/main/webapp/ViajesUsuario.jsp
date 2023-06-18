@@ -107,6 +107,7 @@
   </style>
 </head>
 <body>
+
 <img id="fullscreen-image" src="fondo.jpg" alt="Imagen de pantalla completa">
 <div id="top-bar">
   <div class="d-flex justify-content-end align-items-center">
@@ -120,6 +121,11 @@
     <span color: #ffffff; padding: 5px 10px; border-radius: 5px;">
     <%=tipoSocio%>
     </span>
+
+    <a class="navbar-brand" href="<%=request.getContextPath()%>/Viajes?action=agregar"  style="background-color: #ff0000; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+      Añadir un nuevo Viaje
+    </a>
+
   </div>
 </div>
 <div class="card-body" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
